@@ -163,8 +163,8 @@ textarea {
     }
 
     .arrow {
-        max-width: 10px; /* Smaller width on mobile */
-        max-height: 10px; /* Smaller height on mobile */
+        max-width: 25px; /* Smaller width on mobile */
+        max-height: 30px; /* Smaller height on mobile */
         padding: 5px; /* Adjust padding to fit */
     }
 
