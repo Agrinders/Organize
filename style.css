@@ -163,16 +163,14 @@ textarea {
     }
 
     .arrow {
-        max-width: 75px; /* Smaller width on mobile */
-        max-height: 150px; /* Smaller height on mobile */
-        padding: 5px; /* Adjust padding to fit */
+        top: 40%; /* Adjust position of arrows on mobile */
     }
 
     .arrow-left {
-        left: 100px;
+        left: 50px;
     }
 
     .arrow-right {
-        right: 100px;
+        right: 50px;
     }
 }
