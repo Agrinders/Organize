@@ -1,3 +1,5 @@
+/* General styles */
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -113,7 +115,6 @@ button.delete:hover {
     background-color: #c82333;
 }
 
-
 /* Add these styles to your CSS */
 textarea {
     width: 100%;
@@ -140,4 +141,36 @@ textarea {
 
 .note-content {
     display: none; /* Hide content by default */
+}
+
+/* Media queries for mobile devices */
+@media (max-width: 768px) {
+    #clothes-list {
+        grid-template-columns: 1fr; /* Display one item per row on smaller screens */
+    }
+
+    .cloth-item img {
+        max-width: 100%; /* Ensure images fit within the container */
+    }
+
+    .image-gallery {
+        max-width: 100%; /* Adjust gallery size for smaller screens */
+    }
+
+    button, .button-link {
+        width: 100%; /* Buttons take full width on mobile for better tap targets */
+        padding: 12px;
+    }
+
+    .arrow {
+        top: 40%; /* Adjust position of arrows on mobile */
+    }
+
+    .arrow-left {
+        left: 5px;
+    }
+
+    .arrow-right {
+        right: 5px;
+    }
 }
