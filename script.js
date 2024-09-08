@@ -172,10 +172,10 @@ function showAddClothesForm() {
 
 // Add new cloth
 function addCloth() {
-    const name = document.getElementById('name').value;
-    const images = document.getElementById('images').value.split(',').map(img => img.trim()).filter(img => img); // Handle single or multiple images
-    const price = document.getElementById('price').value;
-    const link = document.getElementById('link').value;
+    const name = document.getElementById('add-name').value;
+    const images = document.getElementById('add-images').value.split(',').map(img => img.trim()).filter(img => img); // Handle single or multiple images
+    const price = document.getElementById('add-price').value;
+    const link = document.getElementById('add-link').value;
 
     if (name && images.length && price && link) {
         const newCloth = { name, images, price, link, currentIndex: 0 };
