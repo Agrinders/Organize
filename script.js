@@ -172,19 +172,29 @@ function showAddClothesForm() {
 
 // Add new cloth
 function addCloth() {
-    const name = document.getElementById('add-name').value;
-    const images = document.getElementById('add-images').value.split(',').map(img => img.trim()).filter(img => img); // Handle single or multiple images
-    const price = document.getElementById('add-price').value;
-    const link = document.getElementById('add-link').value;
+    const nameInput = document.getElementById('cloth-name');
+    const imagesInput = document.getElementById('cloth-images');
+    const priceInput = document.getElementById('cloth-price');
+    const linkInput = document.getElementById('cloth-link');
 
-    if (name && images.length && price && link) {
-        const newCloth = { name, images, price, link, currentIndex: 0 };
-        clothes.push(newCloth);
-        saveClothes();
-        displayClothes();
-        document.getElementById('add-cloth-form').classList.add('hidden');
+    // Check if elements exist
+    if (nameInput && imagesInput && priceInput && linkInput) {
+        const name = nameInput.value;
+        const images = imagesInput.value.split(',').map(img => img.trim()).filter(img => img); // Handle single or multiple images
+        const price = priceInput.value;
+        const link = linkInput.value;
+
+        if (name && images.length && price && link) {
+            const newCloth = { name, images, price, link, currentIndex: 0 };
+            clothes.push(newCloth);
+            saveClothes();
+            displayClothes();
+            document.getElementById('add-cloth-form').classList.add('hidden');
+        } else {
+            alert('Please fill in all fields.');
+        }
     } else {
-        alert('Please fill in all fields.');
+        console.error('Form elements not found.');
     }
 }
 
