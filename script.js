@@ -1,7 +1,142 @@
 // Load saved clothes data from localStorage or initialize empty
 let clothes = JSON.parse(localStorage.getItem('clothes')) || [];
+let notes = JSON.parse(localStorage.getItem('notes')) || [];
 
-// Function to show appropriate section
+let editIndex = -1;
+
+// Show add notes form
+function showAddNotesForm() {
+
+    document.getElementById('add-note-form').classList.remove('hidden');
+    document.getElementById('edit-note-form').classList.add('hidden');
+    editIndex = -1; // Reset edit index
+}
+
+// Show edit note form
+function showEditNoteForm(index) {
+    const note = notes[index];
+    if (note) {
+        document.getElementById('edit-note-title').value = note.title;
+        document.getElementById('edit-note-content').value = note.content;
+        
+        document.getElementById('add-note-form').classList.add('hidden');
+        document.getElementById('edit-note-form').classList.remove('hidden');
+        
+        // Update the save button to edit the note
+        const saveButton = document.getElementById('save-note-button');
+        if (saveButton) {
+            saveButton.onclick = editNote;
+        } else {
+            console.error('Save button not found');
+        }
+
+        // Set the editIndex to the index of the note being edited
+        editIndex = index;
+    } else {
+        console.error('Note not found for index:', index);
+    }
+}
+
+// Add new note
+function addNote() {
+    const title = document.getElementById('add-note-title').value;
+    const content = document.getElementById('add-note-content').value;
+
+    if (title && content) {
+        const newNote = { title, content };
+        notes.push(newNote);
+        saveNotes();
+        displayNotes();
+        document.getElementById('add-note-form').classList.add('hidden');
+        //clearNoteForm(); // Clear form after adding
+    } else {
+        alert('Please fill in all fields.');
+    }
+}
+
+// Edit existing note
+function editNote() {
+    if (editIndex >= 0 && editIndex < notes.length) {
+        const title = document.getElementById('edit-note-title').value;
+        const content = document.getElementById('edit-note-content').value;
+
+        if (title && content) {
+            notes[editIndex] = { title, content }; // Update the note at editIndex
+            saveNotes();
+            displayNotes();
+            document.getElementById('edit-note-form').classList.add('hidden');
+            //clearNoteForm(); // Clear form after saving
+            editIndex = -1; // Reset edit index
+        } else {
+            alert('Please fill in all fields.');
+        }
+    } else {
+        alert('No note selected for editing.');
+    }
+}
+
+
+
+// Save notes to localStorage
+function saveNotes() {
+    localStorage.setItem('notes', JSON.stringify(notes));
+}
+
+
+// Display all notes
+function displayNotes() {
+    const notesList = document.getElementById('notes-list');
+    notesList.innerHTML = ''; // Clear current items
+
+    notes.forEach((note, index) => {
+        const noteItem = document.createElement('div');
+        noteItem.classList.add('note-item');
+        noteItem.innerHTML = `
+            <h3>${note.title}</h3>
+            <p>${note.content}</p>
+            <button class="delete" onclick="deleteNote(${index})">Delete</button>
+            <button onclick="showEditNoteForm(${index})">Edit</button> <!-- Button to show edit form -->
+        `;
+        notesList.appendChild(noteItem);
+    });
+}
+
+// Clear note form fields
+function clearNoteForm() {
+    const addNoteTitle = document.getElementById('add-note-title');
+    const addNoteContent = document.getElementById('add-note-content');
+    const editNoteTitle = document.getElementById('edit-note-title');
+    const editNoteContent = document.getElementById('edit-note-content');
+
+    if (addNoteTitle) addNoteTitle.value = '';
+    if (addNoteContent) addNoteContent.value = '';
+    if (editNoteTitle) editNoteTitle.value = '';
+    if (editNoteContent) editNoteContent.value = '';
+}
+
+// Show note details for editing
+function showNoteDetails(index) {
+    const note = notes[index];
+    document.getElementById('note-title').value = note.title;
+    document.getElementById('note-content').value = note.content;
+    
+    document.getElementById('edit-note-form').classList.remove('hidden');
+    
+    // Update the save button to edit the note
+    const saveButton = document.querySelector('#edit-note-form button');
+    saveButton.onclick = editNote;
+
+    // Set the editIndex to the index of the note being edited
+    editIndex = index;
+}
+
+
+// Initialize the notes list on page load
+document.addEventListener('DOMContentLoaded', () => {
+    displayNotes();
+});
+
+// Show notes section and display notes
 function openSection(section) {
     document.getElementById('login-screen').classList.add('hidden');
     if (section === 'clothes') {
@@ -10,7 +145,16 @@ function openSection(section) {
     } else if (section === 'outfits') {
         document.getElementById('outfits-section').classList.remove('hidden');
         displayOutfits();
+    } else if (section === 'notes') {
+        document.getElementById('notes-section').classList.remove('hidden');
+        displayNotes();
     }
+}
+
+
+function clearNoteForm() {
+    document.getElementById('note-title').value = '';
+    document.getElementById('note-content').value = '';
 }
 
 // Go back to login screen
@@ -18,6 +162,7 @@ function goBack() {
     document.getElementById('login-screen').classList.remove('hidden');
     document.getElementById('clothes-section').classList.add('hidden');
     document.getElementById('outfits-section').classList.add('hidden');
+    document.getElementById('notes-section').classList.add('hidden');
 }
 
 // Show add cloth form
@@ -124,11 +269,19 @@ function deleteCloth(index) {
     displayClothes(); // Refresh the displayed list
 }
 
+// Delete a cloth item
+function deleteNote(index) {
+    notes.splice(index, 1); // Remove the item from the array
+    saveNotes(); // Save the updated list to localStorage
+    displayNotes(); // Refresh the displayed list
+}
+
 // Display outfits (To be expanded)
 function displayOutfits() {
     const outfitsList = document.getElementById('outfits-list');
     outfitsList.innerHTML = '<p>Outfits coming soon...</p>';
 }
+
 
 // Export clothes data to JSON file
 function exportClothes() {

@@ -112,3 +112,32 @@ button.delete {
 button.delete:hover {
     background-color: #c82333;
 }
+
+
+/* Add these styles to your CSS */
+textarea {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+#notes-list {
+    margin: 20px;
+    font-size: larger;
+}
+
+.note-item {
+    border: 1px solid #ccc;
+    padding: 10px;
+    background-color: #fff;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.note-item:hover {
+    background-color: #f9f9f9;
+}
+
+.note-content {
+    display: none; /* Hide content by default */
+}

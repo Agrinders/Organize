@@ -12,6 +12,7 @@
             <h1>Välkommen!</h1>
             <button onclick="openSection('clothes')">Kläder</button>
             <button onclick="openSection('outfits')">Outfits</button>
+            <button onclick="openSection('notes')">Anteckningar</button>
         </div>
 
         <div id="clothes-section" class="hidden">
@@ -24,17 +25,17 @@
             <div id="add-cloth-form" class="hidden">
                 <h3>Lägg till nytt klädesplagg</h3>
                 
-                <label for="name">Namn:</label>
-                <input type="text" id="name"><br>
+                <label for="add-name">Namn:</label>
+                <input type="text" id="add-name"><br>
 
-                <label for="images">Bild Adresser (comma-separated):</label>
-                <input type="text" id="images"><br>                
+                <label for="add-images">Bild Adresser (comma-separated):</label>
+                <input type="text" id="add-images"><br>                
 
-                <label for="price">Pris:</label>
-                <input type="text" id="price"><br>
+                <label for="add-price">Pris:</label>
+                <input type="text" id="add-price"><br>
 
-                <label for="link">Länk:</label>
-                <input type="text" id="link"><br>
+                <label for="add-link">Länk:</label>
+                <input type="text" id="add-link"><br>
 
                 <button onclick="addCloth()">Lägg Till</button>
             </div>
@@ -45,6 +46,38 @@
         <div id="outfits-section" class="hidden">
             <h2>Dina Outfits</h2>
             <div id="outfits-list"></div>
+            <button onclick="goBack()">Tillbaka</button>
+        </div>
+
+        <div id="notes-section" class="hidden">
+            <h2>Dina Anteckningar</h2>
+            <button onclick="showAddNotesForm()">Ny Anteckning</button>
+            <div id="notes-list"></div>
+        
+            <div id="add-note-form" class="hidden">
+                <h3>Lägg till ny anteckning</h3>
+                
+                <label for="add-note-title">Titel:</label>
+                <input type="text" id="add-note-title"><br>
+            
+                <label for="add-note-content">Innehåll:</label>
+                <textarea id="add-note-content"></textarea><br>
+            
+                <button onclick="addNote()">Lägg Till</button>
+            </div>
+            
+            <div id="edit-note-form" class="hidden">
+                <h3>Redigera anteckning</h3>
+                
+                <label for="edit-note-title">Titel:</label>
+                <input type="text" id="edit-note-title"><br>
+            
+                <label for="edit-note-content">Innehåll:</label>
+                <textarea id="edit-note-content"></textarea><br>
+            
+                <button id="save-note-button">Spara</button>
+            </div>
+            
             <button onclick="goBack()">Tillbaka</button>
         </div>
     </div>
