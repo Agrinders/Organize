@@ -1,0 +1,78 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+
+.container {
+    padding: 20px;
+    text-align: center;
+}
+
+.hidden {
+    display: none;
+}
+
+button {
+    padding: 10px 20px;
+    margin: 10px;
+    font-size: 16px;
+}
+
+#clothes-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 10px;
+    margin: 20px;
+}
+
+.cloth-item {
+    border: 1px solid #ccc;
+    padding: 10px;
+    background-color: #fff;
+}
+
+.cloth-item img {
+    max-width: 400px;
+}
+
+#add-cloth-form input {
+    margin: 10px 0;
+}
+
+.image-gallery {
+    position: relative;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.image-gallery img {
+    width: 100%;
+    height: auto;
+    display: none; /* Hide all images by default */
+}
+
+.image-gallery img.show {
+    display: block; /* Show only the current image */
+}
+
+.arrow {
+    position: absolute;
+    top: 50%;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 1;
+}
+
+.arrow-left {
+    left: 0;
+}
+
+.arrow-right {
+    right: 0;
+}
+

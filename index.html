@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clothes & Outfits</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div id="login-screen">
+            <h1>Välkommen!</h1>
+            <button onclick="openSection('clothes')">Kläder</button>
+            <button onclick="openSection('outfits')">Outfits</button>
+        </div>
+
+        <div id="clothes-section" class="hidden">
+            <h2>Dina Kläder</h2>
+            <button onclick="showAddClothesForm()">Nytt Klädesplagg</button>
+            <div id="clothes-list"></div>
+
+            <div id="add-cloth-form" class="hidden">
+                <h3>Lägg till nytt klädesplagg</h3>
+                <label for="name">Namn:</label>
+                <input type="text" id="name"><br>
+
+                <label for="images">Bild Adresser (comma-separated):</label>
+                <input type="text" id="images"><br>                
+
+                <label for="price">Pris:</label>
+                <input type="text" id="price"><br>
+
+                <label for="link">Länk:</label>
+                <input type="text" id="link"><br>
+
+                <button onclick="addCloth()">Lägg Till</button>
+            </div>
+
+            <button onclick="goBack()">Tillbaka</button>
+        </div>
+
+        <div id="outfits-section" class="hidden">
+            <h2>Dina Outfits</h2>
+            <div id="outfits-list"></div>
+            <button onclick="goBack()">Tillbaka</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
