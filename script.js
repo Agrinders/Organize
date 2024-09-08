@@ -129,3 +129,40 @@ function displayOutfits() {
     const outfitsList = document.getElementById('outfits-list');
     outfitsList.innerHTML = '<p>Outfits coming soon...</p>';
 }
+
+// Export clothes data to JSON file
+function exportClothes() {
+    const dataStr = JSON.stringify(clothes, null, 2); // Convert clothes array to JSON string with pretty formatting
+    const blob = new Blob([dataStr], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'clothes-data.json';
+    a.click();
+    URL.revokeObjectURL(url); // Clean up the URL object
+}
+
+// Handle file selection and import data
+function handleFileSelect(event) {
+    const file = event.target.files[0];
+    if (file && file.type === 'application/json') {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            try {
+                const data = JSON.parse(e.target.result);
+                if (Array.isArray(data)) {
+                    clothes = data;
+                    saveClothes(); // Save to localStorage
+                    displayClothes(); // Refresh the display
+                } else {
+                    alert('Invalid data format');
+                }
+            } catch (error) {
+                alert('Error reading file: ' + error.message);
+            }
+        };
+        reader.readAsText(file);
+    } else {
+        alert('Please select a valid JSON file');
+    }
+}

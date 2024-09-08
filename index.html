@@ -17,10 +17,13 @@
         <div id="clothes-section" class="hidden">
             <h2>Dina Kläder</h2>
             <button onclick="showAddClothesForm()">Nytt Klädesplagg</button>
+            <button id="save-button" onclick="exportClothes()">Save</button>
+            <input type="file" accept="application/json" onchange="handleFileSelect(event)">
             <div id="clothes-list"></div>
 
             <div id="add-cloth-form" class="hidden">
                 <h3>Lägg till nytt klädesplagg</h3>
+                
                 <label for="name">Namn:</label>
                 <input type="text" id="name"><br>
 
