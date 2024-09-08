@@ -163,7 +163,9 @@ textarea {
     }
 
     .arrow {
-        top: 40%; /* Adjust position of arrows on mobile */
+        width: 30px; /* Smaller width on mobile */
+        height: 30px; /* Smaller height on mobile */
+        padding: 5px; /* Adjust padding to fit */
     }
 
     .arrow-left {
