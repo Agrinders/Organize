@@ -90,8 +90,8 @@ function displayClothes() {
                 ${galleryHTML}
                 <p><strong>${cloth.name}</strong></p>
                 <p>Price: ${cloth.price}</p>
-                <a href="${cloth.link}" target="_blank">Buy Now</a>
-                <button onclick="deleteCloth(${index})">Delete</button>
+                <a href="${cloth.link}" class="button-link" target="_blank">Buy Now</a>
+                <button class="delete" onclick="deleteCloth(${index})">Delete</button>
             `;
 
             clothesList.appendChild(clothItem);

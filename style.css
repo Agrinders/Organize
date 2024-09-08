@@ -14,10 +14,25 @@ body {
     display: none;
 }
 
-button {
+button, .button-link {
     padding: 10px 20px;
     margin: 10px;
     font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #133253;
+    color: #fff;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover, .button-link:hover {
+    background-color: #0f4079;
+    transform: scale(1.02);
+}
+
+button:active, .button-link:active {
+    transform: scale(0.98);
 }
 
 #clothes-list {
@@ -25,12 +40,13 @@ button {
     grid-template-columns: repeat(4, 1fr);
     grid-gap: 10px;
     margin: 20px;
+    font-size: larger;
 }
 
 .cloth-item {
-    border: 1px solid #ccc;
+    border: 3px solid #e5e3d9;
     padding: 10px;
-    background-color: #fff;
+    background-color: #f4f3ef;
 }
 
 .cloth-item img {
@@ -43,7 +59,7 @@ button {
 
 .image-gallery {
     position: relative;
-    max-width: 300px;
+    max-width: 400px;
     margin: 0 auto;
 }
 
@@ -66,13 +82,33 @@ button {
     cursor: pointer;
     padding: 10px;
     z-index: 1;
+    font-size: 18px;
+    border-radius: 3px;
 }
 
 .arrow-left {
-    left: 0;
+    left: 10px;
 }
 
 .arrow-right {
-    right: 0;
+    right: 10px;
 }
 
+/* Hide and show images */
+.hide {
+    display: none;
+}
+
+.show {
+    display: block;
+}
+
+/* Specific styles for delete buttons */
+button.delete {
+    background-color: #dc3545;
+    margin-left: 10px;
+}
+
+button.delete:hover {
+    background-color: #c82333;
+}
