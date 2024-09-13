@@ -187,7 +187,7 @@ function addWebsite() {
         const images = imagesInput.value.split(',').map(img => img.trim()).filter(img => img); // Handle single or multiple images
         const link = linkInput.value;
 
-        if (name && images.length && price && link) {
+        if (name && images.length && link) {
             const newWebsite = { name, images, link, currentIndex: 0 };
             websites.push(newWebsite);
             saveWebsites();
