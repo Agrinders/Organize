@@ -150,7 +150,7 @@ function openSection(section) {
         document.getElementById('notes-section').classList.remove('hidden');
         displayNotes();
     } else if (section === 'websites') {
-        document.getElementById('website-section').classList.remove('hidden');
+        document.getElementById('websites-section').classList.remove('hidden');
         displayWebsites();
     }
 }
