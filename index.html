@@ -18,7 +18,7 @@
         <div id="clothes-section" class="hidden">
             <h2>Dina Kläder</h2>
             <button onclick="showAddClothesForm()">Nytt Klädesplagg</button>
-            <button id="save-button" onclick="exportClothes()">Save</button>
+            <button id="save-button" onclick="exportClothes()">Spara</button>
             <input type="file" accept="application/json" onchange="handleFileSelect(event)">
             <div id="clothes-list"></div>
 
@@ -38,6 +38,31 @@
                 <input type="text" id="cloth-link"><br>
             
                 <button onclick="addCloth()">Lägg Till</button>
+            </div>
+
+            <button onclick="goBack()">Tillbaka</button>
+        </div>
+
+        <div id="websites-section" class="hidden">
+            <h2>Dina Hemsidor</h2>
+            <button onclick="showAddWebsitesForm()">Ny Hemsida</button>
+            <button id="save-button" onclick="exportWebsites()">Spara</button>
+            <input type="file" accept="application/json" onchange="handleFileSelect(event)">
+            <div id="website-list"></div>
+
+            <div id="add-website-form" class="hidden">
+                <h3>Lägg till ny hemsida</h3>
+                
+                <label for="web-name">Namn:</label>
+                <input type="text" id="web-name"><br>
+            
+                <label for="web-images">Bild Adresser (comma-separated):</label>
+                <input type="text" id="web-images"><br>
+            
+                <label for="web-link">Länk:</label>
+                <input type="text" id="web-link"><br>
+            
+                <button onclick="addWebsite()">Lägg Till</button>
             </div>
 
             <button onclick="goBack()">Tillbaka</button>

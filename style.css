@@ -59,6 +59,28 @@ button:active, .button-link:active {
     margin: 10px 0;
 }
 
+#websites-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 10px;
+    margin: 20px;
+    font-size: larger;
+}
+
+.website-item {
+    border: 3px solid #e5e3d9;
+    padding: 10px;
+    background-color: #f4f3ef;
+}
+
+.website-item img {
+    max-width: 400px;
+}
+
+#add-website-form input {
+    margin: 10px 0;
+}
+
 .image-gallery {
     position: relative;
     max-width: 400px;
@@ -150,6 +172,14 @@ textarea {
     }
 
     .cloth-item img {
+        max-width: 100%; /* Ensure images fit within the container */
+    }
+
+    #websites-list {
+        grid-template-columns: 1fr; /* Display one item per row on smaller screens */
+    }
+
+    .website-item img {
         max-width: 100%; /* Ensure images fit within the container */
     }
 

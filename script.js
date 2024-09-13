@@ -1,5 +1,6 @@
 // Load saved clothes data from localStorage or initialize empty
 let clothes = JSON.parse(localStorage.getItem('clothes')) || [];
+let websites = JSON.parse(localStorage.getItem('websites')) || [];
 let notes = JSON.parse(localStorage.getItem('notes')) || [];
 
 let editIndex = -1;
@@ -148,6 +149,9 @@ function openSection(section) {
     } else if (section === 'notes') {
         document.getElementById('notes-section').classList.remove('hidden');
         displayNotes();
+    } else if (section === 'websites') {
+        document.getElementById('website-section').classList.remove('hidden');
+        displayWebsites();
     }
 }
 
@@ -163,7 +167,119 @@ function goBack() {
     document.getElementById('clothes-section').classList.add('hidden');
     document.getElementById('outfits-section').classList.add('hidden');
     document.getElementById('notes-section').classList.add('hidden');
+    document.getElementById('websites-section').classList.add('hidden');
 }
+
+// Show add cloth form
+function showAddWebsitesForm() {
+    document.getElementById('add-website-form').classList.remove('hidden');
+}
+
+// Add new cloth
+function addWebsite() {
+    const nameInput = document.getElementById('web-name');
+    const imagesInput = document.getElementById('web-images');
+    const linkInput = document.getElementById('web-link');
+
+    // Check if elements exist
+    if (nameInput && imagesInput && linkInput) {
+        const name = nameInput.value;
+        const images = imagesInput.value.split(',').map(img => img.trim()).filter(img => img); // Handle single or multiple images
+        const link = linkInput.value;
+
+        if (name && images.length && price && link) {
+            const newWebsite = { name, images, link, currentIndex: 0 };
+            websites.push(newWebsite);
+            saveWebsites();
+            displayWebsites();
+            document.getElementById('add-website-form').classList.add('hidden');
+        } else {
+            alert('Please fill in all fields.');
+        }
+    } else {
+        console.error('Form elements not found.');
+    }
+}
+
+// Convert old data format to new format
+function convertOldWebData() {
+    const oldWebsites = JSON.parse(localStorage.getItem('websites')) || [];
+    const updatedWebsites = oldWebsites.map(website => {
+        if (website.image && !Array.isArray(website.images)) {
+            return {
+                ...website,
+                images: [website.image], // Convert single image to an array
+                currentIndex: 0
+            };
+        }
+        return website; // Already in correct format
+    });
+    localStorage.setItem('websites', JSON.stringify(updatedWebsites));
+}
+
+// Run this function once to convert old data
+convertOldWebData();
+
+// Display all clothes
+function displayWebsites() {
+    const websitesList = document.getElementById('website-list');
+    websitesList.innerHTML = ''; // Clear current items
+
+    websites.forEach((website, index) => {
+        if (website.images && Array.isArray(website.images)) {
+            const websiteItem = document.createElement('div');
+            websiteItem.classList.add('website-item');
+
+            // Generate gallery HTML with navigation arrows
+            const galleryHTML = `
+                <div class="image-gallery">
+                    ${website.images.map((img, imgIndex) => `
+                        <img src="${img}" class="${imgIndex === website.currentIndex ? 'show' : 'hide'}" alt="${website.name}">
+                    `).join('')}
+                    ${website.images.length > 1 ? `
+                        <button class="arrow arrow-left" onclick="changeImageWebsite(${index}, -1)">&#10094;</button>
+                        <button class="arrow arrow-right" onclick="changeImageWebsite(${index}, 1)">&#10095;</button>
+                    ` : ''}
+                </div>
+            `;
+
+            websiteItem.innerHTML = `
+                ${galleryHTML}
+                <p><strong>${website.name}</strong></p>
+                <a href="${website.link}" class="button-link" target="_blank">Visit</a>
+                <button class="delete" onclick="deleteWebsite(${index})">Delete</button>
+            `;
+
+            websitesList.appendChild(websiteItem);
+        } else {
+            console.error('Website item is missing images or images is not an array:', website);
+        }
+    });
+}
+
+// Change image in gallery
+function changeImageWebsite(websiteIndex, direction) {
+    const website = websites[websiteIndex];
+    const numImages = website.images.length;
+
+    // Update the currentIndex based on direction
+    website.currentIndex = (website.currentIndex + direction + numImages) % numImages;
+    saveWebsites(); // Save the updated list to localStorage
+    displayWebsites(); // Refresh the displayed list
+}
+
+// Save clothes to localStorage
+function saveClothes() {
+    localStorage.setItem('clothes', JSON.stringify(clothes));
+}
+
+// Delete a cloth item
+function deleteWebsite(index) {
+    websites.splice(index, 1); // Remove the item from the array
+    saveWebsites(); // Save the updated list to localStorage
+    displayWebsites(); // Refresh the displayed list
+}
+
 
 // Show add cloth form
 function showAddClothesForm() {
@@ -305,6 +421,18 @@ function exportClothes() {
     URL.revokeObjectURL(url); // Clean up the URL object
 }
 
+// Export clothes data to JSON file
+function exportWebsites() {
+    const dataStr = JSON.stringify(websites, null, 2); // Convert clothes array to JSON string with pretty formatting
+    const blob = new Blob([dataStr], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'websites-data.json';
+    a.click();
+    URL.revokeObjectURL(url); // Clean up the URL object
+}
+
 // Handle file selection and import data
 function handleFileSelect(event) {
     const file = event.target.files[0];
@@ -317,6 +445,31 @@ function handleFileSelect(event) {
                     clothes = data;
                     saveClothes(); // Save to localStorage
                     displayClothes(); // Refresh the display
+                } else {
+                    alert('Invalid data format');
+                }
+            } catch (error) {
+                alert('Error reading file: ' + error.message);
+            }
+        };
+        reader.readAsText(file);
+    } else {
+        alert('Please select a valid JSON file');
+    }
+}
+
+// Handle file selection and import data
+function handleFileSelectWebsite(event) {
+    const file = event.target.files[0];
+    if (file && file.type === 'application/json') {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            try {
+                const data = JSON.parse(e.target.result);
+                if (Array.isArray(data)) {
+                    clothes = data;
+                    saveWebsites(); // Save to localStorage
+                    displayWebsites(); // Refresh the display
                 } else {
                     alert('Invalid data format');
                 }
