@@ -269,8 +269,8 @@ function changeImageWebsite(websiteIndex, direction) {
 }
 
 // Save clothes to localStorage
-function saveClothes() {
-    localStorage.setItem('clothes', JSON.stringify(clothes));
+function saveWebsites() {
+    localStorage.setItem('websites', JSON.stringify(websites));
 }
 
 // Delete a cloth item
